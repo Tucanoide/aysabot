@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ChatHistory {
+  id        Int      @id @default(autoincrement())
+  sessionId String   @map("session_id")
+  message   Json
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([sessionId], name: "idx_aysa_chat_history_session_id")
+  @@map("aysa_chat_history")
+}
